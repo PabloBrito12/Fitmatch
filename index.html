@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitMatch - Conecta, Juega, Crece</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0a0f1e;--panel:#1e293b;--muted:#94a3b8;--primary:#10B981;--primary-dark:#059669;
+      --primary-light:#34D399;--white:#f8fafc;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      background:linear-gradient(135deg,var(--bg) 0%,#0f1419 50%,#111827 100%);
+      color:var(--white);font-family:'Inter',sans-serif;line-height:1.7;overflow-x:hidden
+    }
+    html{scroll-behavior:smooth}
+
+    /* Layout */
+    .container{width:90%;max-width:1300px;margin:0 auto}
+    section{padding:80px 20px}
+    h2{font-size:2.8rem;text-align:center;margin-bottom:20px;font-weight:800;letter-spacing:-1px}
+    .subtitle{text-align:center;color:var(--muted);font-size:1.15rem;max-width:700px;margin:0 auto 60px}
+
+    /* Header */
+    header{
+      background:rgba(10,15,30,0.95);backdrop-filter:blur(20px);position:sticky;top:0;z-index:999;
+      border-bottom:1px solid rgba(16,185,129,0.1);box-shadow:0 4px 30px rgba(0,0,0,0.3)
+    }
+    nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+    .logo-box{display:flex;align-items:center;gap:14px}
+    .logo-img{
+      width:52px;height:52px;object-fit:contain;border-radius:14px;
+      box-shadow:0 8px 25px rgba(16,185,129,0.3);transition:transform .3s;
+      background:rgba(16,185,129,0.15);border:2px solid var(--primary);padding:6px
+    }
+    .logo-img:hover{transform:scale(1.1) rotate(5deg)}
+    .logo-text{font-size:1.5rem;font-weight:800;letter-spacing:-0.5px}
+    .nav-links{display:flex;gap:35px;align-items:center}
+    .nav-links a{
+      color:var(--muted);text-decoration:none;font-weight:600;transition:color .3s;position:relative
+    }
+    .nav-links a:hover{color:var(--primary)}
+    .btn{
+      padding:12px 28px;border-radius:50px;font-weight:700;cursor:pointer;transition:all .3s;
+      border:none;font-size:0.95rem
+    }
+    .btn-primary{
+      background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#000;
+      box-shadow:0 6px 20px rgba(16,185,129,0.4)
+    }
+    .btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(16,185,129,0.6)}
+
+    /* Hero */
+    .hero{
+      text-align:center;padding:100px 20px 120px;position:relative;overflow:hidden;
+      background:radial-gradient(ellipse at top,rgba(16,185,129,0.15),transparent),
+                 radial-gradient(ellipse at bottom,rgba(59,130,246,0.1),transparent)
+    }
+    .hero::before{
+      content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+      background:radial-gradient(circle,rgba(16,185,129,0.08) 1px,transparent 1px);
+      background-size:50px 50px;animation:grid 20s linear infinite;opacity:0.3
+    }
+    @keyframes grid{100%{transform:translate(50px,50px)}}
+    .hero h1{
+      font-size:4rem;line-height:1.1;margin-bottom:24px;font-weight:900;letter-spacing:-2px;
+      background:linear-gradient(135deg,var(--white) 0%,var(--primary-light) 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;position:relative;z-index:2
+    }
+    .gradient-text{
+      background:linear-gradient(135deg,var(--primary),var(--primary-light));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent
+    }
+    .hero-subtitle{font-size:1.3rem;color:var(--muted);max-width:800px;margin:0 auto 40px;position:relative;z-index:2}
+    .hero-cta{display:flex;gap:20px;justify-content:center;margin-bottom:50px;flex-wrap:wrap;position:relative;z-index:2}
+    .btn-ghost{
+      background:rgba(255,255,255,0.05);border:2px solid rgba(16,185,129,0.3);color:var(--primary);
+      padding:14px 32px;border-radius:50px;cursor:pointer;font-weight:700;transition:all .3s
+    }
+    .btn-ghost:hover{background:rgba(16,185,129,0.1);border-color:var(--primary);transform:translateY(-2px)}
+
+    /* Stats */
+    .stats{display:flex;gap:60px;justify-content:center;flex-wrap:wrap;position:relative;z-index:2}
+    .stat{
+      text-align:center;padding:20px;background:rgba(255,255,255,0.02);border-radius:20px;
+      border:1px solid rgba(16,185,129,0.1);min-width:150px;transition:all .3s
+    }
+    .stat:hover{transform:translateY(-8px);border-color:var(--primary);box-shadow:0 15px 40px rgba(16,185,129,0.2)}
+    .stat-num{
+      font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--primary-light));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent
+    }
+    .stat-label{color:var(--muted);margin-top:8px}
+
+    /* About */
+    .about{
+      background:linear-gradient(135deg,rgba(16,185,129,0.05),rgba(59,130,246,0.05));
+      border-radius:30px;padding:70px 50px;border:1px solid rgba(16,185,129,0.1);
+      display:flex;gap:50px;align-items:center;flex-wrap:wrap
+    }
+    .about-content{flex:1;min-width:300px}
+    .about-logo{flex-shrink:0}
+    .about-logo img{
+      width:180px;height:180px;object-fit:contain;filter:drop-shadow(0 20px 40px rgba(16,185,129,0.4));
+      animation:float 3s ease-in-out infinite
+    }
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+    .about h2{text-align:left;margin-bottom:30px;color:var(--primary-light)}
+    .about p{font-size:1.1rem;line-height:1.9;color:rgba(248,250,252,0.9)}
+
+    /* Grid layouts */
+    .grid{display:grid;gap:40px}
+    .grid-2{grid-template-columns:repeat(auto-fit,minmax(350px,1fr))}
+    .grid-3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:35px}
+
+    /* Cards */
+    .card{
+      background:linear-gradient(135deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));
+      padding:40px;border-radius:24px;border:1px solid rgba(255,255,255,0.05);
+      transition:all .4s;position:relative;overflow:hidden
+    }
+    .card::before{
+      content:'';position:absolute;top:0;left:0;width:100%;height:4px;
+      background:linear-gradient(90deg,var(--primary),#3B82F6);transform:scaleX(0);transition:transform .4s
+    }
+    .card:hover{transform:translateY(-12px);box-shadow:0 25px 60px rgba(16,185,129,0.2);border-color:rgba(16,185,129,0.3)}
+    .card:hover::before{transform:scaleX(1)}
+    .card h3{font-size:1.8rem;margin-bottom:20px;color:var(--primary-light)}
+    .card p{font-size:1.05rem;line-height:1.8;color:rgba(248,250,252,0.85)}
+    .highlight{border-radius:16px;padding:20px;margin-top:25px;font-weight:600}
+
+    /* Feature cards */
+    .feature{
+      background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(59,130,246,0.05));
+      padding:35px;border-radius:22px;text-align:center;transition:all .4s;
+      border:1px solid rgba(16,185,129,0.15)
+    }
+    .feature:hover{transform:translateY(-12px);box-shadow:0 20px 50px rgba(16,185,129,0.3);border-color:var(--primary)}
+    .feature-icon{font-size:3rem;margin-bottom:20px}
+    .feature h4{font-size:1.3rem;margin-bottom:12px}
+    .feature p{color:var(--muted);line-height:1.7}
+
+    /* Table */
+    table{
+      width:100%;border-collapse:separate;border-spacing:0;border-radius:20px;overflow:hidden;
+      box-shadow:0 10px 40px rgba(0,0,0,0.3)
+    }
+    th,td{padding:20px;text-align:center;border:1px solid rgba(255,255,255,0.05)}
+    thead th{
+      background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(59,130,246,0.1));
+      font-weight:800;font-size:1.1rem
+    }
+    tbody tr{background:rgba(255,255,255,0.02)}
+    tbody tr:hover{background:rgba(16,185,129,0.05)}
+    td{color:var(--muted);font-size:1.05rem}
+
+    /* Mockups */
+    .mock{
+      background:linear-gradient(135deg,rgba(255,255,255,0.04),rgba(255,255,255,0.01));
+      padding:30px;border-radius:25px;text-align:center;border:1px solid rgba(16,185,129,0.1);transition:all .4s
+    }
+    .mock:hover{transform:translateY(-15px) scale(1.02);box-shadow:0 30px 70px rgba(16,185,129,0.25)}
+    .mock img{
+      width:100%;max-width:250px;height:auto;border-radius:18px;
+      box-shadow:0 20px 50px rgba(0,0,0,0.5);margin-bottom:25px;transition:transform .4s
+    }
+    .mock:hover img{transform:scale(1.05)}
+    .mock h4{font-weight:700;font-size:1.3rem;margin-bottom:12px}
+    .mock p{color:var(--muted);line-height:1.6}
+
+    /* Team */
+    .team-card{
+      display:flex;gap:35px;align-items:center;background:rgba(255,255,255,0.03);padding:40px;
+      border-radius:25px;max-width:800px;margin:0 auto;border:1px solid rgba(16,185,129,0.15);
+      transition:all .4s
+    }
+    .team-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(16,185,129,0.2)}
+    .avatar{
+      width:130px;height:130px;border-radius:50%;object-fit:cover;border:4px solid var(--primary);
+      box-shadow:0 15px 40px rgba(16,185,129,0.4);flex-shrink:0
+    }
+    .team-info h4{font-size:1.8rem;margin-bottom:10px}
+    .team-info p{color:var(--muted);line-height:1.7;margin-bottom:15px}
+    .team-quote{color:var(--primary-light);font-style:italic;font-size:1.1rem;font-weight:600;margin-top:15px}
+
+    /* CTA */
+    .cta{
+      background:linear-gradient(135deg,var(--primary),var(--primary-dark));padding:80px 40px;
+      border-radius:30px;color:#000;text-align:center;box-shadow:0 25px 60px rgba(16,185,129,0.4);
+      position:relative;overflow:hidden
+    }
+    .cta::before{
+      content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;
+      background:radial-gradient(circle,rgba(255,255,255,0.1) 10%,transparent 10%);
+      background-size:20px 20px;animation:ctaAnim 15s linear infinite
+    }
+    @keyframes ctaAnim{100%{transform:translate(20px,20px)}}
+    .cta h2{font-size:3rem;margin-bottom:20px;position:relative;z-index:2;font-weight:900}
+    .cta p{font-size:1.2rem;margin-bottom:35px;position:relative;z-index:2;font-weight:600}
+    .btn-cta{
+      background:#000;padding:18px 45px;border-radius:50px;color:var(--white);border:none;
+      cursor:pointer;font-weight:800;font-size:1.1rem;transition:all .3s;position:relative;z-index:2;
+      box-shadow:0 10px 30px rgba(0,0,0,0.4)
+    }
+    .btn-cta:hover{transform:translateY(-5px) scale(1.05);box-shadow:0 15px 40px rgba(0,0,0,0.6)}
+
+    /* Footer */
+    footer{padding:60px 20px 30px;border-top:1px solid rgba(16,185,129,0.1);background:rgba(10,15,30,0.8)}
+    .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;margin-bottom:40px}
+    .footer-logo{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+    .footer-logo img{width:45px;height:45px;border-radius:12px}
+    .footer-logo span{font-size:1.3rem;font-weight:800}
+    footer h4{margin-bottom:20px;font-size:1.1rem}
+    .link{
+      display:block;color:var(--muted);text-decoration:none;margin-bottom:12px;
+      transition:all .3s
+    }
+    .link:hover{color:var(--primary);transform:translateX(5px)}
+    .footer-bottom{
+      text-align:center;color:var(--muted);padding-top:30px;
+      border-top:1px solid rgba(255,255,255,0.05)
+    }
+
+    /* Responsive */
+    @media(max-width:900px){
+      .hero h1{font-size:2.5rem}
+      h2{font-size:2.2rem}
+      .team-card,.about{flex-direction:column;text-align:center}
+      .nav-links{display:none}
+      .grid-2,.grid-3{grid-template-columns:1fr}
+      .about h2{text-align:center}
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <nav class="container">
+      <div class="logo-box">
+        <img src="/images/logo.png" alt="FitMatch Logo" class="logo-img">
+        <span class="logo-text">FitMatch</span>
+      </div>
+      <div class="nav-links">
+        <a href="#about">Quiénes Somos</a>
+        <a href="#problema">Problema</a>
+        <a href="#caracteristicas">Características</a>
+        <a href="#mockups">Demo</a>
+        <a href="#team">Equipo</a>
+      </div>
+      <button class="btn btn-primary">Descargar Gratis</button>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Conecta, Juega y <span class="gradient-text">Crece</span></h1>
+    <p class="hero-subtitle">
+      La plataforma que une deportistas, locales recreativos y bienestar físico en un solo ecosistema digital
+    </p>
+    <div class="hero-cta">
+      <button class="btn btn-primary">🚀 Comenzar Ahora</button>
+      <button class="btn-ghost">📱 Ver Demo</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Usuarios Activos</div></div>
+      <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Locales Aliados</div></div>
+      <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Partidos/Mes</div></div>
+      <div class="stat"><div class="stat-num">0$</div><div class="stat-label">Para Usuarios</div></div>
+    </div>
+  </section>
+
+  <!-- QUIÉNES SOMOS -->
+  <section id="about" class="container">
+    <div class="about">
+      <div class="about-content">
+        <h2>¿Quiénes Somos?</h2>
+        <p>
+          <strong>FitMatch</strong> es una plataforma móvil gratuita para usuarios que conecta jugadores con locales recreativos. 
+          Los usuarios no pagan; los locales pagan comisión por reserva. Promovemos la <strong>actividad física</strong>, 
+          facilitamos reservas en ambientes amigables y fortalecemos la <strong>comunidad deportiva local</strong>.
+        </p>
+      </div>
+      <div class="about-logo">
+        <img src="/images/logo.png" alt="FitMatch">
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA Y SOLUCIÓN -->
+  <section id="problema" class="container">
+    <h2>El Desafío que Enfrentamos</h2>
+    <p class="subtitle">La inactividad física y falta de organización deportiva son problemas reales</p>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>🚨 El Problema</h3>
+        <p>
+          <strong>Alta prevalencia de inactividad y sobrepeso</strong> en El Salvador. Más del <strong style="color:#ef4444">65%</strong> 
+          no realiza actividad física frecuente.
+        </p>
+        <div class="highlight" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2)">
+          <p style="color:#ef4444">
+            A pesar de la gran cultura de fútbol, la desorganización y falta de herramientas digitales limitan la participación.
+          </p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>✨ Nuestra Solución</h3>
+        <p>
+          Reserva simple, gestión de torneos, perfil con videos highlight, mHealth (Google Fit/HealthKit) y panel administrativo para locales.
+        </p>
+        <div class="highlight" style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2)">
+          <p style="color:var(--primary-light);font-weight:700">🎯 Deporte + Comunidad + Tecnología + Bienestar</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARACTERÍSTICAS -->
+  <section id="caracteristicas" class="container">
+    <h2>Características Principales</h2>
+    <p class="subtitle">Funciones diseñadas para revolucionar la experiencia deportiva amateur</p>
+    <div class="grid grid-3">
+      <div class="feature">
+        <div class="feature-icon">📍</div>
+        <h4>Reserva Inteligente</h4>
+        <p>Busca canchas por zona, horario y precio. Confirma en segundos.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🏆</div>
+        <h4>Torneos Relámpago</h4>
+        <p>Organiza torneos amateur con gestión automática de brackets.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">👥</div>
+        <h4>Red Social Deportiva</h4>
+        <p>Feed social, equipos, eventos y chat con tu comunidad.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📊</div>
+        <h4>Perfil Profesional</h4>
+        <p>Sube stats y videos para que equipos te descubran.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">❤️</div>
+        <h4>Monitoreo de Salud</h4>
+        <p>Integración con Google Fit/HealthKit para seguimiento.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <h4>100% Gratis</h4>
+        <p>Usuarios no pagan. Comisiones a locales por reservas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARACIÓN -->
+  <section class="container">
+    <h2>¿Por qué Elegirnos?</h2>
+    <p class="subtitle">Comparación con la competencia</p>
+    <table>
+      <thead>
+        <tr><th>Característica</th><th>Otras Apps</th><th style="color:var(--primary-light)">FitMatch 🚀</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Reservas</strong></td><td>✅ Básicas</td><td><strong style="color:var(--primary)">✅ + Gestión</strong></td></tr>
+        <tr><td><strong>Comunidad</strong></td><td>❌</td><td><strong style="color:var(--primary)">✅ Feed + Equipos</strong></td></tr>
+        <tr><td><strong>Torneos</strong></td><td>❌</td><td><strong style="color:var(--primary)">✅ Automático</strong></td></tr>
+        <tr><td><strong>Salud</strong></td><td>❌</td><td><strong style="color:var(--primary)">✅ Fit/HealthKit</strong></td></tr>
+        <tr><td><strong>Perfil Jugador</strong></td><td>❌</td><td><strong style="color:var(--primary)">✅ Videos + Stats</strong></td></tr>
+        <tr><td><strong>Costo</strong></td><td>💰 Pago</td><td><strong style="color:var(--primary)">✅ GRATIS</strong></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- MOCKUPS -->
+  <section id="mockups" class="container">
+    <h2>Mira Cómo Funciona</h2>
+    <p class="subtitle">Interfaz intuitiva y moderna diseñada para experiencia fluida</p>
+    <div class="grid grid-3">
+      <div class="mock">
+        <img src="/images/mockup1.png" alt="Pantalla principal">
+        <h4>Pantalla Principal</h4>
+        <p>Encuentra canchas cercanas y conecta con jugadores.</p>
+      </div>
+      <div class="mock">
+        <img src="/images/mockup2.png" alt="Reservas">
+        <h4>Reserva en Segundos</h4>
+        <p>Disponibilidad en tiempo real y confirmación instantánea.</p>
+      </div>
+      <div class="mock">
+        <img src="/images/mockup comunidad.png" alt="Comunidad">
+        <h4>Comunidad Activa</h4>
+        <p>Crea equipos, organiza torneos y comparte momentos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPO -->
+  <section id="team" class="container">
+    <h2>Nuestro Equipo</h2>
+    <p class="subtitle">El talento detrás de FitMatch</p>
+    <div class="team-card">
+      <img src="/images/fotoperfil.png" alt="Pablo Brito" class="avatar">
+      <div class="team-info">
+        <h4>Pablo Brito</h4>
+        <p>
+          Estudiante de Ingeniería Informática y fundador de FitMatch. Apasionado por conectar 
+          la comunidad deportiva salvadoreña y promover vida activa y saludable.
+        </p>
+        <p class="team-quote">
+          💬 "El cambio comienza con un solo partido. FitMatch es el primer paso hacia una comunidad más activa."
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container">
+    <div class="cta">
+      <h2>Únete a la Revolución Deportiva</h2>
+      <p>Descarga FitMatch y transforma el deporte amateur en El Salvador. ¡Totalmente gratis!</p>
+      <button class="btn-cta">🚀 Descargar Ahora</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid container">
+      <div>
+        <div class="footer-logo">
+          <img src="/images/logo.png" alt="FitMatch">
+          <span>FitMatch</span>
+        </div>
+        <p style="color:var(--muted)">Conectando deportistas y locales en El Salvador.</p>
+      </div>
+      <div>
+        <h4>Enlaces</h4>
+        <a href="#about" class="link">Quiénes Somos</a>
+        <a href="#caracteristicas" class="link">Características</a>
+        <a href="#mockups" class="link">Demo</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="#" class="link">Términos</a>
+        <a href="#" class="link">Privacidad</a>
+        <a href="#" class="link">Cookies</a>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <p style="color:var(--muted)">📧 fitmatchsv@gmail.com</p>
+        <p style="color:var(--muted);margin-top:10px">📍 El Salvador</p>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>© 2025 FitMatch. Todos los derechos reservados.</p>
+      <p style="margin-top:8px;font-size:0.85rem">Desarrollado por Pablo Brito | El Salvador 🇸🇻</p>
+    </div>
+  </footer>
+</body>
+</html>
